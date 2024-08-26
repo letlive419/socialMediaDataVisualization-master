@@ -14,10 +14,6 @@ function Dashboard () {
 
     
 
-    const [user_token, setUser_Token] = useState("")
-    const [userid, setUserId] = useState("")
-    
-
     /*URLs*/
     const BASEURL = "https://api.staging.getphyllo.com"
     const URLCreateUser = "/v1/users"
@@ -52,12 +48,12 @@ const Login = async() => {
        })
        const user_id = createUserResponse.data.id
        console.log(`Completed fetching user_id ${user_id}`)
-       setUserId(user_id)
+       
         
        console.log("Fetching token")
         const createTokenResponse = await api.post(
             URLCreateToken, {
-                user_id: userid,
+                user_id: user_id,
                 products: [
                     "IDENTITY",
                     "IDENTITY.AUDIENCE",
@@ -69,7 +65,7 @@ const Login = async() => {
         })
         const user_token = createTokenResponse.data.sdk_token;
         console.log(`Completed fetching ${user_token}`)
-        setUser_Token(user_token)
+        
      
     
    
