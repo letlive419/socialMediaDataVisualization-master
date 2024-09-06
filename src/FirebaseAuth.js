@@ -1,37 +1,57 @@
 import {initializeApp} from "firebase/app";
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {v4 as uuidv4} from "uuid";
+import {auth, app} from "./firebaseconfig"
+import { firestore } from "firebase-admin";
 
 
 export default class FirebaseAuth  {
-    constructor(email, password) {
-        this.email = email;
-        this.password = password;
+    constructor() {
+       
+        this.db = getFirestore(app)
         
-        const firebaseConfig = {
-            apiKey: process.env.REACT_APP_API_KEY,
-            authDomain: "socialmediadatavisualizer.firebaseapp.com",
-            projectId: process.env.REACT_APP_PROJECT_ID,
-            storageBucket: "socialmediadatavisualizer.appspot.com",
-            messagingSenderId: process.env.REACT_APP_SENDER_ID,
-            appId: process.env.REACT_APP_APP_ID,
-            measurementId: "G-Q09VEC0PX1" 
-        }
+    }
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app)
+       
 
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(`Successfully logged in as ${user}`)
-        })
-        .catch((error) => {
+       async createUserWithTraditionalMethod(auth, email, password) {
+       try {
+        
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            console.log(`Successfully logged in as ${userCredential}`)
+       }
+        catch(error) {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(`ErrorCode = ${errorCode}, ErrorMessage: ${errorMessage}`)
-        })
+        }
+    }
+
+       
+
+        async addUserToFirestore(name, email) {
+        try {
+           
+            await addDoc(collection(this.db, "users"), {
+                name:name,
+                uid:uuidv4(),
+                email:email,
+
+            });
+            console.log("Success")
+
+        } catch (e) {
+            console.error("Error adding document: ", e)
+        }
+    }
+
+
+
+
+       
+        
         
     }
     
    
-}
