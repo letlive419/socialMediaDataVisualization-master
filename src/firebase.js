@@ -1,31 +1,24 @@
-const express = require("express");
-const cors = require("cors");
-const { initializeApp } = require("firebase/app");
-const { getAuth, createUserWithEmailAndPassword } = require("firebase/auth");
-const { getFirestore, collection, addDoc } = require("firebase/firestore");
-const { v4: uuidv4 } = require("uuid");
-require("dotenv").config();
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
 
-
-const expressApp = express();
-
-expressApp.use(cors());
 
 const firebaseConfig = {
-    apiKey: process.env.APP_API_KEY,
+    apiKey: process.env.REACT_APP_API_KEY,
     authDomain: "socialmediadatavisualizer.firebaseapp.com",
-    projectId: process.env.APP_PROJECT_ID,
+    projectId: process.env.REACT_APP_PROJECT_ID,
     storageBucket: "socialmediadatavisualizer.appspot.com",
-    messagingSenderId: process.env.APP_SENDER_ID,
-    appId: process.env.APP_APP_ID,
+    messagingSenderId: process.env.REACT_APP_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
     measurementId: "G-Q09VEC0PX1" 
 }
 
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app)
+export const auth = getAuth(app)
 
-class FirebaseAuth {
+export class FirebaseAuth {
     constructor() {
         this.db = getFirestore(app);
     }
@@ -54,13 +47,3 @@ class FirebaseAuth {
         }
     }
 }
-
-module.exports = FirebaseAuth;
-
-expressApp.get("/", (req, res) => {
-    res.send("Hello from our server!");
-});
-
-expressApp.listen(8080, () => {
-    console.log("server listening on port 8080");
-});

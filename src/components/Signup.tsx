@@ -1,6 +1,6 @@
 import { useState } from "react";
-import FirebaseAuth from "../../server/server";
-import auth from "../../server/server"
+import {FirebaseAuth} from "../firebase";
+import {auth} from "../firebase"
 
 
 
