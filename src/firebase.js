@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
@@ -35,15 +35,36 @@ export class FirebaseAuth {
     }
 
     async addUserToFirestore(name, email) {
+        let uid = uuidv4();
         try {
+            
             await addDoc(collection(this.db, "users"), {
                 name: name,
-                uid: uuidv4(),
+                uid: uid,
                 email: email,
-            });
-            console.log("Success");
+            })
+           
+            
         } catch (e) {
+            uid = null
             console.error("Error adding document: ", e);
         }
+       
+        return uid
     }
+
+
+    async signInUser(auth, email, password) {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth,email,password);
+            return userCredential.user
+        }
+        catch(error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(`There seems to be an issue Code: ${errorCode}, Message: ${errorMessage}`)
+        }
+        
+    }
+    
 }

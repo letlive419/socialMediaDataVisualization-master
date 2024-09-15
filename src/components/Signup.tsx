@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {FirebaseAuth} from "../firebase";
 import {auth} from "../firebase"
+import {PhylloSDK} from "../phyllosdk";
+import Nav from "./Nav";
 
 
 
@@ -11,9 +13,11 @@ const [name, setName] = useState("");
 const [password, setPassword] = useState("");
 const [passwordToVerify, setPasswordToVerify] = useState("")
 
-   
 
-    function handleSubmit(event) {
+
+  
+
+    async function handleSubmit(event) {
         event.preventDefault()
 
         if (password !== passwordToVerify){
@@ -22,8 +26,18 @@ const [passwordToVerify, setPasswordToVerify] = useState("")
            } else {
             console.log("Success")
             const fireAuth = new FirebaseAuth();
+            const phylloSDK = new PhylloSDK();
+
+
             fireAuth.createUserWithTraditionalMethod(auth, email, password);
-            fireAuth.addUserToFirestore(name, email)
+            const uid = await fireAuth.addUserToFirestore(name, email)
+            
+            
+            
+            await phylloSDK.createUserAndToken(name, uid);
+
+          
+
             
             
            }    
@@ -51,6 +65,7 @@ const [passwordToVerify, setPasswordToVerify] = useState("")
     }
     return(
         <div>
+            <Nav/>
             <h1> Register </h1>
             <form  onSubmit={handleSubmit}>
               <label htmlFor="name">Enter your name </label>
