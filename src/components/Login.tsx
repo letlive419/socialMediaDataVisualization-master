@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Nav from "./Nav";
 import {FirebaseAuth, auth} from "../firebase.js"
+import { redirect } from "react-router-dom";
 
 
 
@@ -12,9 +13,12 @@ function Login() {
         event.preventDefault();
         const firebase = new FirebaseAuth();
         const user = await firebase.signInUser(auth, email, password)
-       
-
-
+        
+        
+        if (user) {
+            //do something
+        }
+        
     }
 
     function showPassword () {

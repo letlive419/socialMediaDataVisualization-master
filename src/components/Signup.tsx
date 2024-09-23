@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {FirebaseAuth} from "../firebase";
 import {auth} from "../firebase"
 import {PhylloSDK} from "../phyllosdk";
 import Nav from "./Nav";
+import { redirect } from "react-router-dom";
+
 
 
 
@@ -15,7 +17,7 @@ const [passwordToVerify, setPasswordToVerify] = useState("")
 
 
 
-  
+
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -25,22 +27,27 @@ const [passwordToVerify, setPasswordToVerify] = useState("")
             return
            } else {
             console.log("Success")
+           }
             const fireAuth = new FirebaseAuth();
             const phylloSDK = new PhylloSDK();
 
+            // phylloSDK.clearAccounts()
 
-            fireAuth.createUserWithTraditionalMethod(auth, email, password);
-            const uid = await fireAuth.addUserToFirestore(name, email)
-            
-            
-            
-            await phylloSDK.createUserAndToken(name, uid);
 
-          
+            if (await fireAuth.createUserWithTraditionalMethod(auth, email, password)) {
+                const uid = await fireAuth.addUserToFirestore(name, email)
+                await phylloSDK.createUserAndToken(name, uid);
+                
+            }
 
-            
-            
-           }    
+          let account_id = null;
+
+           phylloSDK.account_id.addEventListener("start", (event:CustomEvent) => {
+              account_id = event.detail;
+              fireAuth.updateUser(email, account_id)
+           })
+
+ 
     }
 
 

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, doc, updateDoc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -27,10 +27,13 @@ export class FirebaseAuth {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             console.log(`Successfully logged in as ${userCredential.user.email}`);
+            return true
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(`ErrorCode = ${errorCode}, ErrorMessage: ${errorMessage}`);
+            alert(`ErrorCode = ${errorCode}, ErrorMessage: ${errorMessage}`);
+            return false
+            
         }
     }
 
@@ -38,11 +41,12 @@ export class FirebaseAuth {
         let uid = uuidv4();
         try {
             
-            await addDoc(collection(this.db, "users"), {
+            await setDoc(doc(this.db, "users", email), {
                 name: name,
                 uid: uid,
-                email: email,
+                
             })
+            console.log(`finished updating fireStore with name: ${name}, and email: ${email}`)
            
             
         } catch (e) {
@@ -65,6 +69,13 @@ export class FirebaseAuth {
             console.log(`There seems to be an issue Code: ${errorCode}, Message: ${errorMessage}`)
         }
         
+    }
+
+    async updateUser(email, account_id) {
+        const docRef = doc(this.db, "users", email)
+        await updateDoc(docRef, {
+            accountID: account_id
+        });
     }
     
 }

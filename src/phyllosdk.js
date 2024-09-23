@@ -1,6 +1,7 @@
 import axios from "axios";
 
 
+
     /*URLs*/
     const BASEURL = "https://api.staging.getphyllo.com"
     const URLCreateUser = "/v1/users"
@@ -17,9 +18,16 @@ import axios from "axios";
     })
 
 export class PhylloSDK {
+   constructor() {
+
+    this.account_id = new EventTarget()
+   }
    
    
-  
+
+
+
+
 
 getIdentity = async(accountid) => {
     const response = await api.get(`https://api.staging.getphyllo.com/v1/profiles?account_id=${accountid}`, {
@@ -51,10 +59,30 @@ getComments = async(accountid) => {
     console.log(response)
 }
 
+clearAccounts = async() => {
+    const response = await api.get("/v1/accounts")
+    const accounts = response.data.data
+    console.log(accounts[0].id)
+    
+    for (let i = 0; i < accounts.length; i++) {
+        try {
+        await api.post(`/v1/accounts/${accounts[i].id}/disconnect`)
+        console.log(`accountId: ${accounts[i].id} disconnected`)
+        setTimeout(()=> {
+            console.log("Waiting")
+        }, 2000)
+    }
+        catch(error) {
+            console.log(error)
+    }
+    }
+    
+    
+}
     
 createUserAndToken = async(name, uid) => {
 
-    let account_id = ""
+    
     try 
        {
         
@@ -90,7 +118,7 @@ createUserAndToken = async(name, uid) => {
             environment: "staging",
             userId: user_id,
             token:user_token, 
-            redirect: false,
+            
         }
 
         
@@ -99,13 +127,12 @@ createUserAndToken = async(name, uid) => {
         const phylloConnect =  window.PhylloConnect.initialize(config);
         
        
-    
+        
         phylloConnect.on("accountConnected", (accountId, workplatformId, userId) => {
             console.log(`onAccountDisconnected: ${accountId}, ${workplatformId}, ${userId}`);
-            account_id = accountId;
-            this.accountConnected = () => {
-                return account_id
-            }
+            const newEvent = new CustomEvent("start", {detail:accountId});
+            this.account_id.dispatchEvent(newEvent)
+            
         })
             
     
@@ -117,14 +144,16 @@ createUserAndToken = async(name, uid) => {
         })
         phylloConnect.on("exit", (reason, userId) => {  // indicates that the user with given user ID has closed the SDK and gives an appropriate reason for it
             console.log(`onExit: ${reason}, ${userId}`);
+           
             
         })
         phylloConnect.on("connectionFailure", (reason, workplatformId, userId) => {  // optional, indicates that the user with given user ID has attempted connecting to the work platform but resulted in a failure and gives an appropriate reason for it
             console.log(`onConnectionFailure: ${reason}, ${workplatformId}, ${userId}`);
         })
         phylloConnect.open()
-   
+      
         }
+        
        
 
    
