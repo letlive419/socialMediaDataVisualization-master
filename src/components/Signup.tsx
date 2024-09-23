@@ -10,9 +10,7 @@ const [name, setName] = useState("");
 const [password, setPassword] = useState("");
 const [passwordToVerify, setPasswordToVerify] = useState("")
 const [submitValid, setSubmitValid] = useState(false)
-    const firebase = new FirebaseAuth()
-
-    console.log(firebase)
+    
 
     function handleSubmit(event) {
         event.preventDefault()
