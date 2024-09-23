@@ -1,13 +1,14 @@
 import { useState } from "react";
 import Nav from "./Nav";
 import {FirebaseAuth, auth} from "../firebase.js"
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
 function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
     const handleSubmit = async(event) => {
         event.preventDefault();
@@ -17,6 +18,7 @@ function Login() {
         
         if (user) {
             //do something
+            navigate("/Dashboard", {state: user.email})
         }
         
     }
