@@ -1,5 +1,6 @@
 import axios from "axios";
-
+import { redirect } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 
     /*URLs*/
@@ -30,17 +31,23 @@ export class PhylloSDK {
 
 
 getIdentity = async(accountid) => {
-    const response = await api.get(`https://api.staging.getphyllo.com/v1/profiles?account_id=${accountid}`, {
+    const response = await api.get("/v1/audience",{
+        params:{
+            account_id:accountid
+        },
         headers:{
         Authorization: "Basic MzAxOTdlM2MtZmU5My00MjdiLTk4ZjItN2NkOWIwZTYyZWVkOjA2YTA5MjdlLWM4MDEtNDExMS04NDE1LTA0OWE1MzcwODhhMg==",
-        ContentType: "application/json"
+        ContentType: "application/json",
         }
     })
     console.log(response)
 }
 
 getEngagement = async(accountid) => {
-    const response = await api.get(`https://api.staging.getphyllo.com/v1/contents?account_id=${accountid}`, {
+    const response = await api.get("/v1/contents", {
+        params: {
+            account_id:accountid
+        },
         headers:{
         Authorization: "Basic MzAxOTdlM2MtZmU5My00MjdiLTk4ZjItN2NkOWIwZTYyZWVkOjA2YTA5MjdlLWM4MDEtNDExMS04NDE1LTA0OWE1MzcwODhhMg==",
         ContentType: "application/json"
@@ -80,8 +87,8 @@ clearAccounts = async() => {
     
 }
     
-createUserAndToken = async(name, uid) => {
-
+createUser = async(name) => {
+    let uid = uuidv4();
     
     try 
        {
@@ -93,10 +100,16 @@ createUserAndToken = async(name, uid) => {
        })
        const user_id = createUserResponse.data.id
        console.log(`Completed fetching user_id ${user_id}`)
+       return user_id
+    }
+    catch(error) {
+        console.log(error)
+    } 
+}       
        
-        
-       console.log("Fetching token")
-        const createTokenResponse = await api.post(
+createToken = async(user_id) => {
+    try {
+       const createTokenResponse = await api.post(
             URLCreateToken, {
                 user_id: user_id,
                 products: [
@@ -110,9 +123,14 @@ createUserAndToken = async(name, uid) => {
             })
         const user_token = createTokenResponse.data.sdk_token;
         console.log(`Completed fetching ${user_token}`)
-
+        return user_token
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
         
-       
+syncAccount = async(name, user_id, user_token) => {       
         const config = {
             clientDisplayName: name,
             environment: "staging",
@@ -153,16 +171,14 @@ createUserAndToken = async(name, uid) => {
         phylloConnect.open()
       
         }
+
         
        
 
    
-    catch(error) {
-        console.log(`Error occurred, please see the following for more details ${error.message}`)
-    }
+    
 
     
     
 }
 
-}

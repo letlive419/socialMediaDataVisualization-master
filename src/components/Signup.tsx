@@ -3,7 +3,7 @@ import {FirebaseAuth} from "../firebase";
 import {auth} from "../firebase"
 import {PhylloSDK} from "../phyllosdk";
 import Nav from "./Nav";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -14,7 +14,7 @@ const [email, setEmail] = useState("");
 const [name, setName] = useState("");
 const [password, setPassword] = useState("");
 const [passwordToVerify, setPasswordToVerify] = useState("")
-
+const navigate = useNavigate()
 
 
 
@@ -35,8 +35,12 @@ const [passwordToVerify, setPasswordToVerify] = useState("")
 
 
             if (await fireAuth.createUserWithTraditionalMethod(auth, email, password)) {
-                const uid = await fireAuth.addUserToFirestore(name, email)
-                await phylloSDK.createUserAndToken(name, uid);
+                const user_id = await phylloSDK.createUser(name);
+                const user_token = await phylloSDK.createToken(user_id)
+                await fireAuth.addUserToFirestore(name, email, user_id)
+                await phylloSDK.syncAccount(name, user_id, user_token)
+                
+                navigate("/Dashboard", {state: email})
                 
             }
 

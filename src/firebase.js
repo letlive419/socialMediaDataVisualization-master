@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, addDoc, doc, updateDoc, setDoc } from "firebase/firestore";
-import { v4 as uuidv4 } from "uuid";
+import { getFirestore, collection, addDoc, doc, updateDoc, setDoc, getDoc } from "firebase/firestore";
+// import { v4 as uuidv4 } from "uuid";
 
 
 const firebaseConfig = {
@@ -37,24 +37,24 @@ export class FirebaseAuth {
         }
     }
 
-    async addUserToFirestore(name, email) {
-        let uid = uuidv4();
+    async addUserToFirestore(name, email,user_id) {
+        // let uid = uuidv4();
         try {
             
             await setDoc(doc(this.db, "users", email), {
                 name: name,
-                uid: uid,
+                user_id: user_id,
                 
             })
             console.log(`finished updating fireStore with name: ${name}, and email: ${email}`)
            
             
         } catch (e) {
-            uid = null
+            
             console.error("Error adding document: ", e);
         }
        
-        return uid
+        // return uid
     }
 
 
@@ -74,8 +74,17 @@ export class FirebaseAuth {
     async updateUser(email, account_id) {
         const docRef = doc(this.db, "users", email)
         await updateDoc(docRef, {
-            accountID: account_id
+            accountID: account_id,
+            
+            
         });
+    }
+
+    async getUser(email) {
+        const docRef = doc(this.db, "users", email)
+        const docSnap = await getDoc(docRef)
+        return docSnap
+
     }
     
 }
