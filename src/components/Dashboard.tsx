@@ -50,7 +50,7 @@ function Dashboard () {
         
         let account_id = null;
         let user = await firebaseAuth.getUser(userEmail);
-        const name =await user.data().name;
+        const name = await user.data().name;
         const user_id = await user.data().user_id;
         const user_token = await phylloSDK.createToken(user_id);
 
@@ -58,7 +58,7 @@ function Dashboard () {
            phylloSDK.account_id.addEventListener("start", (event:CustomEvent) => {
               account_id = event.detail;
               firebaseAuth.updateUser(userEmail, account_id)
-              window.location.reload();
+              this.window.location.reload();
            })
         
     }

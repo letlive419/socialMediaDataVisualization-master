@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 
     /*URLs*/
-    const BASEURL = "https://api.staging.getphyllo.com"
+    const BASEURL = "https://api.sandbox.getphyllo.com"
     const URLCreateUser = "/v1/users"
     const URLCreateToken = "/v1/sdk-tokens"
 
@@ -44,7 +44,7 @@ getIdentity = async(accountid) => {
 }
 
 getEngagement = async(accountid) => {
-    const response = await api.get("/v1/contents", {
+    const response = await api.get("/v1/social/contents", {
         params: {
             account_id:accountid
         },
@@ -133,7 +133,7 @@ createToken = async(user_id) => {
 syncAccount = async(name, user_id, user_token) => {       
         const config = {
             clientDisplayName: name,
-            environment: "staging",
+            environment: "sandbox",
             userId: user_id,
             token:user_token, 
             
