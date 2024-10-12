@@ -18,6 +18,7 @@ function Login() {
         
         if (user) {
             //do something
+            localStorage.setItem("email", user.email)
             navigate("/Dashboard", {state: user.email})
         }
         

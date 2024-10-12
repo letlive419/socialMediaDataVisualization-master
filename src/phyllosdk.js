@@ -53,7 +53,7 @@ getEngagement = async(accountid) => {
         ContentType: "application/json"
         }
     })
-    console.log(response)
+    return response
 }
 
 getComments = async(accountid) => {

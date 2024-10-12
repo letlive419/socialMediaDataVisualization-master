@@ -3,7 +3,7 @@ import {useLocation} from "react-router-dom";
 import { FirebaseAuth } from "../firebase";
 import { useEffect } from "react";
 import { PhylloSDK } from "../phyllosdk";
-
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -16,9 +16,10 @@ function Dashboard () {
 
     
     const location = useLocation()
-    const userEmail = location.state
+    const userEmail = location.state || localStorage.getItem("email")
     const firebaseAuth = new FirebaseAuth()
     const phylloSDK = new PhylloSDK()
+    const navigate = useNavigate()
     
 
     useEffect(() => {
@@ -71,8 +72,10 @@ function Dashboard () {
     async function handleEngagement () {
         let user = await firebaseAuth.getUser(userEmail);
         const account_id = await user.data().accountID;
-        const engagement = phylloSDK.getEngagement(account_id)
-        console.log(engagement)
+        const engagement = await phylloSDK.getEngagement(account_id)
+        // console.log(engagement.data.data.map(element => element.engagement.like_count))
+        navigate('/Engagement', {state: engagement.data.data })
+        
     }
     return(
         <div>
