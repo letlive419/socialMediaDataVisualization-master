@@ -66,8 +66,10 @@ function Dashboard () {
     async function handleIdentity () {
         let user = await firebaseAuth.getUser(userEmail);
         const account_id = await user.data().accountID;
-        const identity = phylloSDK.getIdentity(account_id)
-        console.log(identity)
+        const identity = await phylloSDK.getIdentity(account_id)
+        
+        navigate('/Identity', {state: identity.data })
+        
     }
     async function handleEngagement () {
         let user = await firebaseAuth.getUser(userEmail);

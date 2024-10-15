@@ -10,7 +10,19 @@ function Engagement() {
         <div>
         <Nav/>
         {location.state.map(element => 
-            <p> Likes : {element.engagement.like_count }</p>)
+        <>
+        <img src={element.thumbnail_url} alt="thumbnail"></img>
+            <ul> 
+                
+                <li> Title : {element.title} </li>
+                <li> Published on: {element.published_at}</li>
+               <li> Likes : {element.engagement.like_count }</li>
+               <li> Saves : {element.engagement.save_count} </li>
+               <li> Shares: {element.engagement.share_count}</li>
+                
+            </ul>
+            </>
+            )
             }
         
         </div>

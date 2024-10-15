@@ -2,6 +2,8 @@ import { useState } from "react";
 import Nav from "./Nav";
 import {FirebaseAuth, auth} from "../firebase.js"
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { setStateTrue } from "../features/handleLogin/isLoggedIn";
 
 
 
@@ -9,6 +11,8 @@ function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+    const loggedIn = useAppSelector((state) => state.isLoggedIn.value);
+    const dispatch = useAppDispatch()
 
     const handleSubmit = async(event) => {
         event.preventDefault();
@@ -19,6 +23,7 @@ function Login() {
         if (user) {
             //do something
             localStorage.setItem("email", user.email)
+            dispatch(setStateTrue())
             navigate("/Dashboard", {state: user.email})
         }
         

@@ -40,7 +40,7 @@ getIdentity = async(accountid) => {
         ContentType: "application/json",
         }
     })
-    console.log(response)
+    return response
 }
 
 getEngagement = async(accountid) => {

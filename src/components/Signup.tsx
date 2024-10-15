@@ -4,6 +4,9 @@ import {auth} from "../firebase"
 import {PhylloSDK} from "../phyllosdk";
 import Nav from "./Nav";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
+import { setStateTrue } from "../features/handleLogin/isLoggedIn";
+
 
 
 
@@ -15,7 +18,7 @@ const [name, setName] = useState("");
 const [password, setPassword] = useState("");
 const [passwordToVerify, setPasswordToVerify] = useState("")
 const navigate = useNavigate()
-
+const dispatch = useAppDispatch()
 
 
 
@@ -39,7 +42,8 @@ const navigate = useNavigate()
                 const user_token = await phylloSDK.createToken(user_id)
                 await fireAuth.addUserToFirestore(name, email, user_id)
                 await phylloSDK.syncAccount(name, user_id, user_token)
-                
+                localStorage.setItem("email", email)
+                dispatch(setStateTrue())
                 navigate("/Dashboard", {state: email})
                 
             }

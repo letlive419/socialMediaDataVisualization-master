@@ -5,9 +5,11 @@ import Login from './Login';
 import Signup from './Signup';
 import Dashboard from './Dashboard';
 import Engagement from './Engagement';
+import Identity from './Identity';
 
 
 function App() {
+  
   return (
     <BrowserRouter>
     {/* Handle the routing of the application */}
@@ -17,6 +19,9 @@ function App() {
     <Route path='/Signup' element={<Signup/>}/>
     <Route path='/Dashboard' element={<Dashboard/>}/>
     <Route path='/Engagement' element={<Engagement/>}/>
+    <Route path='/Identity' element={<Identity/>}/>
+  
+    
     </Routes>
     </BrowserRouter>
   );
