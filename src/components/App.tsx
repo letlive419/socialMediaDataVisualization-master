@@ -6,7 +6,7 @@ import Signup from './Signup';
 import Dashboard from './Dashboard';
 import Engagement from './Engagement';
 import Identity from './Identity';
-
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   
@@ -17,10 +17,14 @@ function App() {
     <Route path='/' element={<Home/>}/>
     <Route path='/Login' element={<Login/>}/>
     <Route path='/Signup' element={<Signup/>}/>
+    <Route element={<ProtectedRoute />}>
+
     <Route path='/Dashboard' element={<Dashboard/>}/>
+
     <Route path='/Engagement' element={<Engagement/>}/>
     <Route path='/Identity' element={<Identity/>}/>
-  
+
+    </Route>
     
     </Routes>
     </BrowserRouter>

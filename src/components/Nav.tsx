@@ -24,9 +24,11 @@ function Nav() {
         <>
         <nav>
             <ul>
+                {(loggedIn) ? null :
                 <li>
                 <Link to="/"><button>Home</button></Link>
                 </li>
+                }
                 <li>
                 <Link to="/Dashboard"><button>Dashboard</button></Link>
                 </li>
