@@ -26,6 +26,21 @@ function Nav() {
         
            
                 <img src="https://static.vecteezy.com/system/resources/previews/006/627/369/original/cool-monkey-logo-design-illustrator-free-vector.jpg" alt="socialmediaassistant"/>
+                <div className="dropdown">
+                <button className="dropbtn"> Top Features </button>
+                <div className="dropdown-content">
+                    <button>Social Media Analytics</button>
+                    <button>Publish and Schedule</button>
+                    <button>Social Listening</button>
+                    <button>AI Content Creater</button>
+                    <button>Best Times to Post</button>
+                </div>
+                </div>
+                <button>Integrations</button>
+                <button>Industries</button>
+                <button>Resources</button>
+                <button>Pricing</button>
+                <button>Enterprise</button>
                 {(loggedIn) ? null :
     
                 <Link to="/"><button className="spacer">Home</button></Link>
