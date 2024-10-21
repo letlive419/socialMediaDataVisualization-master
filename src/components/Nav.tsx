@@ -21,26 +21,32 @@ function Nav() {
         
     }
     return(
-        <>
-        <nav>
-            <ul>
+        <div className="border">
+        <div className="navbar">
+        
+           
+                <img src="https://static.vecteezy.com/system/resources/previews/006/627/369/original/cool-monkey-logo-design-illustrator-free-vector.jpg" alt="socialmediaassistant"/>
                 {(loggedIn) ? null :
-                <li>
-                <Link to="/"><button>Home</button></Link>
-                </li>
+    
+                <Link to="/"><button className="spacer">Home</button></Link>
+                
                 }
-                <li>
-                <Link to="/Dashboard"><button>Dashboard</button></Link>
-                </li>
+                
+                <Link to="/Dashboard"><button className="spacer">Dashboard</button></Link>
+                
                 {(loggedIn)? 
-                <li>
+                
                     <button onClick={handleClick} id="signOut-button">SignOut</button>
-                </li>
+                
                 :null}
+                <div className="spacer">
+                <Link to="/Login"> <button className="loginbtn">Login</button></Link>
 
-            </ul>
-        </nav>
-        </>
+                <Link to= "/Signup"><button className="registerbtn">Register</button></Link>
+                </div>
+
+        </div>
+        </div>
     )
 }
 
