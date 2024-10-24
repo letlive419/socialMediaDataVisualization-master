@@ -80,7 +80,13 @@ const dispatch = useAppDispatch()
     }
     return(
         <div>
-            <Nav/>
+            
+            <div className="signup-flex">
+                <div className="signup-left">
+                    <img className="logo-image" src="https://static.vecteezy.com/system/resources/previews/006/627/369/original/cool-monkey-logo-design-illustrator-free-vector.jpg"></img>
+                    <img className="created-image" src="images/1.png"></img>
+                </div>
+                <div>
             <h1> Register </h1>
             <form  onSubmit={handleSubmit}>
               <label htmlFor="name">Enter your name </label>
@@ -103,8 +109,8 @@ const dispatch = useAppDispatch()
 
               <button type="submit" onSubmit={handleSubmit}>Submit</button>
             </form>
-
-
+            </div>
+            </div>
         </div>
     )
 }
