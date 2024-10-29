@@ -164,28 +164,30 @@ p {
 .signup-left{
    background-color: black;
    height: 100vh;
-   width: 52%;
+   width: 50%;
+   overflow: hidden;
 }
 
 .logo-image{
-   width: 70px;
-    height: 70px;
-    margin-top: 80px;
-    margin-left: 100px;
+   width: 10%;
+    height: 8%;
+    margin-top: 10%;
+    margin-left: 10%;
     
 }
 .created-image {
    
-   margin-left: 50px;
-   width: 600px; 
-   height: 800px;
+   margin: auto;
+   width: 100%; 
+   height: 70%;
 }
 
 .register {
    text-align: center;
-   margin-top: 10%;
+   margin-top: 5%;
    width: 100%;
    height: 100vh;
+   
 }
 
 .register-title {
@@ -196,9 +198,11 @@ p {
 
 
 .form {
-   width: 25%;
+   width: 40%;
    text-align: left;
-   background-color: black;
+   margin: auto;
+  
+   
    
 }
 
@@ -206,9 +210,18 @@ input {
    width:100%;
    padding:12px 15px;
    box-sizing: border-box;
-   margin: 10px 0;
+   margin: 2% 0;
    border-radius: 5px;
    text-align: left;
+   
+}
+
+.submit-button {
+   width: 100%;
+   padding: 10px 10px;
+   background-color: #243642;
+   color: white;
+   margin: 2% 0;
    
 }
 

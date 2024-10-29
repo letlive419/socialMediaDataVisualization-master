@@ -104,15 +104,15 @@ const dispatch = useAppDispatch()
 
               <label htmlFor="password">Password </label>
               <input type="password" id="password" name="password" onChange={(e) => setPasswordToVerify(e.target.value)} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
-              <input type="checkbox" onClick={showPassword}/> Show Password
+              
               <br/>
 
               <label htmlFor="confirmPassword">Confirm Password </label>
               <input type="password" id="confirmPassword" name="confirmPassword" onChange={(e) => setPassword(e.target.value)} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"  required/>
-              <input type="checkbox" onClick={showConfirmPassword}/> Show Password
+              
               <br/>
 
-              <button type="submit" onSubmit={handleSubmit}>Submit</button>
+              <button type="submit" className="submit-button" onSubmit={handleSubmit}>Create My Account</button>
               
             </form>
             </div>
