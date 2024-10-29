@@ -86,12 +86,17 @@ const dispatch = useAppDispatch()
                     <img className="logo-image" src="https://static.vecteezy.com/system/resources/previews/006/627/369/original/cool-monkey-logo-design-illustrator-free-vector.jpg"></img>
                     <img className="created-image" src="images/1.png"></img>
                 </div>
-                <div>
-            <h1> Register </h1>
+
+            <div className="register">
+            <h1 className="register-title"> Let's create your account </h1>
+
+            <div className="form">
             <form  onSubmit={handleSubmit}>
-              <label htmlFor="name">Enter your name </label>
-              <input type="text" name="name" onChange={(e) => setName(e.target.value)} required/>
-              <br/>
+            
+              <label className="full-name-label" htmlFor="name">Full name <br/></label>
+           
+              <input id="fn-input" type="text" name="name" onChange={(e) => setName(e.target.value)} required/>
+            
 
               <label htmlFor="email">Email </label>
               <input type="email"  name="email" onChange={(e) => setEmail(e.target.value)} required />
@@ -108,7 +113,9 @@ const dispatch = useAppDispatch()
               <br/>
 
               <button type="submit" onSubmit={handleSubmit}>Submit</button>
+              
             </form>
+            </div>
             </div>
             </div>
         </div>
