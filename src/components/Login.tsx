@@ -42,18 +42,26 @@ function Login() {
     return(
         
         <div>
-            <Nav></Nav>
-            Login
             
+            <div className="signup-flex">
+                <div className="signup-left">
+                    <img className="logo-image" src="https://static.vecteezy.com/system/resources/previews/006/627/369/original/cool-monkey-logo-design-illustrator-free-vector.jpg"></img>
+                    <img className="created-image" src="images/1.png"></img>
+                </div>
+            <div className="register">
+            <h1 className="register-title">Login</h1>
+            <div className="form">
             <form onSubmit={handleSubmit}>
               <label htmlFor="email">Email</label>
               <input type="email" id="username" required onChange={(e) => setEmail(e.target.value)}/><br/>
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" name="password" required onChange={(e) => setPassword(e.target.value)}/>
-              <input type="checkbox" onClick={showPassword}/> Show Password <br/>
-              <button type="submit">Submit</button>
+              <input type="password" id="password" name="password" required onChange={(e) => setPassword(e.target.value)} />
+              
+              <button type="submit" className="submit-button">Submit</button>
             </form>
-            
+            </div>
+            </div>
+            </div>
         </div>
     )
 }

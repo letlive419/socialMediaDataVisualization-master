@@ -225,6 +225,9 @@ input {
    
 }
 
+input[type=password] ::after {
+   content: url(../public/images/hide.png)
+}
 
 
 

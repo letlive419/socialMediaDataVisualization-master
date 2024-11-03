@@ -19,14 +19,14 @@ const [password, setPassword] = useState("");
 const [passwordToVerify, setPasswordToVerify] = useState("")
 const navigate = useNavigate()
 const dispatch = useAppDispatch()
-
+const [error, setError] = useState('')
 
 
     async function handleSubmit(event) {
         event.preventDefault()
 
         if (password !== passwordToVerify){
-            alert("passwords must match");
+            setError("passwords must match");
             return
            } else {
             console.log("Success")
@@ -100,6 +100,7 @@ const dispatch = useAppDispatch()
 
               <label htmlFor="email">Email </label>
               <input type="email"  name="email" onChange={(e) => setEmail(e.target.value)} required />
+              
               <br/>
 
               <label htmlFor="password">Password </label>
