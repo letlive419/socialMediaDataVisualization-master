@@ -240,3 +240,20 @@ input[type=password] ::after {
 
 
 /* Dashboard */
+.dashboard {
+   text-align: center;
+}
+
+.dashboard-btn-layout {
+   
+}
+.dashboard button {
+   margin-left: 1%;
+   border-radius: 5px;
+    background-color: #AF1740;
+    padding: 16px 12px;
+    color:white;
+    font-size: larger;
+    border:none;
+    cursor:pointer;
+}

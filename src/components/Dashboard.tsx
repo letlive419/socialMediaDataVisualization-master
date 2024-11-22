@@ -81,16 +81,21 @@ function Dashboard () {
     }
     return(
         <div>
-            <Nav />
+        <Nav />
+        <div className="dashboard">
+            
             <h1>
                 Dashboard
                 </h1>
-                <p>Welcome {userEmail}</p>
+                <h3>Welcome {userEmail}</h3>
+                <p>Please click one of the following buttons below to display your accounts information</p>
+                <div className="dashboard-btn-layout">
                 <button id="phylloSync" onClick={handleClick}>Sync with Phyllo</button>
                 <button id="identity" onClick={handleIdentity}>Identity</button>
                 <button id="engagement" onClick={handleEngagement}>Engagement</button>
-                
+                </div>
             
+        </div>
         </div>
     )
 }
