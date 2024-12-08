@@ -83,6 +83,7 @@ export class FirebaseAuth {
     async getUser(email) {
         const docRef = doc(this.db, "users", email)
         const docSnap = await getDoc(docRef)
+        
         return docSnap
 
     }

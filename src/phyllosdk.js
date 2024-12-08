@@ -57,7 +57,7 @@ getEngagement = async(accountid) => {
 }
 
 getComments = async(accountid) => {
-    const response = await api.get(`https://api.staging.getphyllo.com/v1/comments?account_id=${accountid}`, {
+    const response = await api.get(`https://api.sandbox.getphyllo.com/v1/comments?account_id=${accountid}`, {
         headers:{
         Authorization: "Basic MzAxOTdlM2MtZmU5My00MjdiLTk4ZjItN2NkOWIwZTYyZWVkOjA2YTA5MjdlLWM4MDEtNDExMS04NDE1LTA0OWE1MzcwODhhMg==",
         ContentType: "application/json"

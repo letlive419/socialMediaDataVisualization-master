@@ -57,7 +57,7 @@ function Login() {
               <label htmlFor="password">Password</label>
               <input type="password" id="password" name="password" required onChange={(e) => setPassword(e.target.value)} />
               
-              <button type="submit" className="submit-button">Submit</button>
+              <button type="submit" className="submit-button" >Login</button>
             </form>
             </div>
             </div>

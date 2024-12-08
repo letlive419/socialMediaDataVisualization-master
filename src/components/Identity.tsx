@@ -15,17 +15,22 @@ function Identity() {
     return (
         <div>
             <Nav/>
-            <p>Username: {location.state.account.platform_username} </p>
-            <p>Audience Distribution: </p>
-            {location.state.gender_age_distribution.map(element => 
+            
+            <h2>Username: {location.state.account.platform_username} </h2>
+            <h3>Audience Distribution: </h3>
+            
+            {location.state.gender_age_distribution.map((element,index) => 
                 
-                <>
+                <div className="identity-div">
                 <ul>
+                <li>Item #{index + 1}</li>
                 <li>Gender: {element.gender}</li>
                 <li>Age Range: {element.age_range}</li>
                 </ul>
-                </>
+                </div>
             )}
+            
+            
             
         </div>
     )

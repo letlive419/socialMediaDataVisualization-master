@@ -10,7 +10,7 @@ function Engagement() {
         <div>
         <Nav/>
         {location.state.map(element => 
-        <>
+        <div className="identity-div">
         <img src={element.thumbnail_url} alt="thumbnail"></img>
             <ul> 
                 
@@ -21,7 +21,7 @@ function Engagement() {
                <li> Shares: {element.engagement.share_count}</li>
                 
             </ul>
-            </>
+            </div>
             )
             }
         

@@ -24,8 +24,11 @@ function Dashboard () {
 
     useEffect(() => {
         const fetchUserData = async () => {
+            
             try {
+                console.log(await firebaseAuth.getUser(userEmail))
                 let user = await firebaseAuth.getUser(userEmail);
+                
                 if (!user.data().accountID) {
                     const identity_ele = document.getElementById("identity");
                     identity_ele.hidden = true;
